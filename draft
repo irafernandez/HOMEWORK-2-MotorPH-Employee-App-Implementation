@@ -1,0 +1,37 @@
+package motorph;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Username: ");
+        String username = scan.nextLine();
+
+        System.out.print("Password: ");
+        String password = scan.nextLine();
+
+        boolean loggedIn = logIn();
+
+        if (loggedIn) {
+            displayEmployeeDetails(username);
+
+        } else {
+            System.out.println("Invalid username or password. Access denied.");
+        }
+    }
+
+    private static boolean logIn() {
+       
+        return true; //assumes that boolean is always true
+    }
+
+    private static void displayEmployeeDetails(String username) {
+        System.out.println();
+        System.out.println("Welcome " + username + " to MotorPH Employee Portal");
+        System.out.println("Employee details:");
+    }
+}
