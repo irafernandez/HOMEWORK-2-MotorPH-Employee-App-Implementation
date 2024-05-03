@@ -1,11 +1,17 @@
 package motorph;
 
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.Duration;
 
 public class Main {
 
-    public static void main(String[] args) {
+    private static boolean loggedIn = false;
+    private static boolean checkedIn = false;
+    private static LocalDateTime loginTime;
+    private static LocalDateTime timeOut;
 
+    public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
         System.out.print("Username: ");
@@ -14,24 +20,46 @@ public class Main {
         System.out.print("Password: ");
         String password = scan.nextLine();
 
-        boolean loggedIn = logIn();
+        loggedIn = logIn(username, password);
 
         if (loggedIn) {
             displayEmployeeDetails(username);
-
+            timeIn();
+            System.out.println();
+            System.out.println("Press number 3 to time out:");
+            int choice = scan.nextInt();
+            if(choice == 3)
+                timeOut();
         } else {
             System.out.println("Invalid username or password. Access denied.");
         }
     }
 
-    private static boolean logIn() {
-       
-        return true; //assumes that boolean is always true
+    private static boolean logIn(String username, String password) {
+        
+        return true; 
     }
 
     private static void displayEmployeeDetails(String username) {
+    	System.out.println();
+    	System.out.println("=Welcome " + username + "to MotorPH Employee Portal=");
+        System.out.println("Employee Details:");
+        //will add more necessary details here later on
         System.out.println();
-        System.out.println("Welcome " + username + " to MotorPH Employee Portal");
-        System.out.println("Employee details:");
+        
+    }
+
+    private static void timeIn() {
+        loginTime = LocalDateTime.now();
+        System.out.println("Your Time In: " + loginTime);
+    }
+
+    private static void timeOut() {
+        timeOut = LocalDateTime.now();
+        Duration duration = Duration.between(loginTime, timeOut);
+        long hours = duration.toHours();
+        long minutes = duration.toMinutesPart();
+        System.out.println("Your Time Out: " + timeOut);
+        System.out.println("Total Hours Worked: " + hours + " hours and " + minutes + " minutes");
     }
 }
